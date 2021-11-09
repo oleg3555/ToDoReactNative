@@ -1,9 +1,9 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
+import {ScrollView, StatusBar, StyleSheet} from 'react-native';
 import {AddItemForm} from "./components/AddItemForm";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType, store} from "./state/store";
-import {addTodolistAC, todolistType} from "./state/todolists-reducer";
+import {addTodolistAC, changeTodolistFilterAC, filterValuesType, todolistType} from "./state/todolists-reducer";
 import {Todolist} from "./components/Todolist";
 import {Header} from "react-native-elements";
 import {SafeAreaProvider} from "react-native-safe-area-view";
@@ -16,6 +16,9 @@ export const MainContent = () => {
     const addTodolist = (title: string) => {
         dispatch(addTodolistAC(title));
     }
+    const changeTodolistFilter = (todolistId: string, filter: filterValuesType) => {
+        dispatch(changeTodolistFilterAC(todolistId, filter));
+    }
     return (
         <SafeAreaProvider style={styles.container}>
             <Header
@@ -26,7 +29,12 @@ export const MainContent = () => {
             />
             <ScrollView style={styles.scrollView}>
                 <AddItemForm addItem={addTodolist}/>
-                {todolists.map(tl => <Todolist key={tl.id} todolistId={tl.id} filter={tl.filter} title={tl.title}/>)}
+                {todolists.map(tl => <Todolist key={tl.id}
+                                               todolistId={tl.id}
+                                               filter={tl.filter}
+                                               title={tl.title}
+                                               changeTodolistFilter={changeTodolistFilter}
+                />)}
             </ScrollView>
         </SafeAreaProvider>
     );
