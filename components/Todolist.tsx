@@ -57,9 +57,12 @@ export const Todolist = (props: todolistPropsType) => {
                 changeTaskStatus={changeTaskStatus}/>
             )}
             <View style={styles.buttonGroup}>
-                <Button onPress={onPressAllFilterButton} style={styles.button} title="all"/>
-                <Button onPress={onPressActiveFilterButton} style={styles.button} title="active"/>
-                <Button onPress={onPressCompletedFilterButton} style={styles.button} title="completed"/>
+                <Button onPress={onPressAllFilterButton} type={props.filter === "all" ? "solid" : "outline"}
+                        style={styles.button} title="all"/>
+                <Button onPress={onPressActiveFilterButton} type={props.filter === "active" ? "solid" : "outline"}
+                        style={styles.button} title="active"/>
+                <Button onPress={onPressCompletedFilterButton} type={props.filter === "completed" ? "solid" : "outline"}
+                        style={styles.button} title="completed"/>
             </View>
         </View>
     )
@@ -86,6 +89,6 @@ const styles = StyleSheet.create({
     },
     button: {
         width: 90,
-        margin: 5
+        margin:5,
     },
 });
